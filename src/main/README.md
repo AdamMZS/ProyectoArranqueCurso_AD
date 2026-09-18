@@ -19,6 +19,6 @@ Aplicación básica de gestión de tareas en memoria mediante interfaz de consol
 
 * **Java JDK 17 o superior**
 * Compilar y ejecutar desde la clase `Main.java`:
-  ```bash
+  
   javac *.java
   java Main
