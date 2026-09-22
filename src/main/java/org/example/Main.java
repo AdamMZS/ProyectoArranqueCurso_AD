@@ -146,7 +146,7 @@ public class Main {
             System.out.println("No hay tareas registradas con esa prioridad2.");
             return;
         }
-        for (Tarea t:tareas){
+        for (Tarea t:tareas) {
             System.out.println(t);
         }
     }
