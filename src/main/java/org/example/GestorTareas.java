@@ -14,8 +14,8 @@ public class GestorTareas{
         this.contadorId = 1;
     }
 
-    public void agregarTarea(String descripcion) {
-        Tarea nuevaTarea = new Tarea(contadorId, descripcion);
+    public void agregarTarea(Prioridad prioridad,String descripcion) {
+        Tarea nuevaTarea = new Tarea(contadorId, prioridad,descripcion);
         tareas.add(nuevaTarea);
         contadorId++;
     }
@@ -49,5 +49,14 @@ public class GestorTareas{
             }
         }
         return null;
+    }
+    public List<Tarea> buscarPorPrioridad(Prioridad prioridad){
+        List<Tarea> resultado= new ArrayList<>();
+        for(Tarea t:tareas){
+            if (t.getPrioridad()==prioridad){
+            resultado.add(t);
+            }
+        }
+        return resultado;
     }
 }

@@ -18,7 +18,8 @@ public class Main {
                 case 2 -> agregarTarea(scanner, gestor);
                 case 3 -> completarTarea(scanner, gestor);
                 case 4 -> eliminarTarea(scanner, gestor);
-                case 5 -> {
+                case 5->filtrarTareasPorPrioridad(scanner,gestor);
+                case 6 -> {
                     System.out.println("\nCerrando aplicación. ¡Hasta la próxima!");
                     salir = true;
                 }
@@ -39,7 +40,8 @@ public class Main {
         System.out.println("2. Añadir nueva tarea");
         System.out.println("3. Marcar tarea como completada");
         System.out.println("4. Eliminar tarea");
-        System.out.println("5. Salir");
+        System.out.println("5. Mostrar tarea por prioridad");
+        System.out.println("6. Salir");
         System.out.println("======================================");
     }
 
@@ -73,13 +75,20 @@ public class Main {
         System.out.println("\n--- AÑADIR TAREA ---");
         System.out.print("Descripción de la tarea: ");
         String descripcion = scanner.nextLine().trim();
-
+        System.out.println("Prioridad de la tarea");
+        String prioridadInput=scanner.nextLine().trim().toLowerCase();
+        Prioridad prioridad;
+        try{
+        prioridad=Prioridad.valueOf(prioridadInput);
+        }catch (IllegalArgumentException e){
+            System.out.println("Prioridad no válida. Debe ser alta, media o baja.");
+            return;
+        }
         if (descripcion.isBlank()) {
             System.out.println("Error: La descripción no puede estar vacía.");
             return;
         }
-
-        gestor.agregarTarea(descripcion);
+        gestor.agregarTarea(prioridad,descripcion);
         System.out.println("✓ Tarea añadida con éxito.");
     }
 
@@ -120,5 +129,25 @@ public class Main {
     private static void pausar(Scanner scanner) {
         System.out.print("\nPresiona ENTER para volver al menú...");
         scanner.nextLine();
+    }
+    private static void filtrarTareasPorPrioridad(Scanner scanner,GestorTareas gestor){
+        System.out.println("Que tipo de prioridad quieres filtrar");
+        String prioridadInput=scanner.nextLine().trim().toLowerCase();
+        Prioridad prioridad;
+        try{
+            prioridad=Prioridad.valueOf(prioridadInput);
+        }catch (IllegalArgumentException e){
+            System.out.println("Prioridad no válida. Debe ser alta, media o baja.");
+            return;
+            }
+        List<Tarea> tareas = gestor.buscarPorPrioridad(prioridad);
+        System.out.println("----LISTA DE TAREAS POR PRIORIDAD----");
+        if (tareas.isEmpty()) {
+            System.out.println("No hay tareas registradas con esa prioridad2.");
+            return;
+        }
+        for (Tarea t:tareas){
+            System.out.println(t);
+        }
     }
 }
