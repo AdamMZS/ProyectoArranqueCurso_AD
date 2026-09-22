@@ -1,10 +1,11 @@
 package org.example;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
         GestorTareas gestor = new GestorTareas();
         boolean salir = false;
@@ -19,7 +20,8 @@ public class Main {
                 case 3 -> completarTarea(scanner, gestor);
                 case 4 -> eliminarTarea(scanner, gestor);
                 case 5->filtrarTareasPorPrioridad(scanner,gestor);
-                case 6 -> {
+                case 6->gestor.guardarEnArchivo("ListadoDeTareas.csv");
+                case 7 -> {
                     System.out.println("\nCerrando aplicación. ¡Hasta la próxima!");
                     salir = true;
                 }
@@ -41,7 +43,8 @@ public class Main {
         System.out.println("3. Marcar tarea como completada");
         System.out.println("4. Eliminar tarea");
         System.out.println("5. Mostrar tarea por prioridad");
-        System.out.println("6. Salir");
+        System.out.println("6. Guardar las tareas en archivo");
+        System.out.println("7. Salir");
         System.out.println("======================================");
     }
 
